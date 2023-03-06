@@ -4,7 +4,6 @@ import com.skypro.library.dao.BookDAO;
 import com.skypro.library.entity.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
@@ -31,11 +30,11 @@ public class BookServiceImpl implements BookService{
 
     @Override
     public Book updateBook(String isbn, Book book) {
-        Book editableBook = this.bookDAO.findByIsbn(book.getIsbn());
+        Book editableBook = this.bookDAO.findByIsbn(isbn);
         editableBook.setAuthor(book.getAuthor());
         editableBook.setTitle(book.getTitle());
         editableBook.setPublication_year(book.getPublication_year());
-        validateBook(editableBook);
+        validateBook(book);
         bookDAO.update(book);
         return book;
     }

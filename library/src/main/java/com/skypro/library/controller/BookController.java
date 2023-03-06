@@ -9,12 +9,21 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/books")
 public class BookController {
 
     @Autowired
     private BookService bookService;
+
+    @GetMapping("/books")
+    public String showBooks(Model model) {
+        List<Book> books = bookService.getAllBooks();
+        model.addAttribute("books", books);
+        return "books-list";
+    }
 
     @GetMapping("")
     public String getAllBooks(Model model) {
